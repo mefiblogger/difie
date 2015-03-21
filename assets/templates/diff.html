@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>difie - Side by side diff</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script>
+
+        </script>
+        <style>
+            td {
+                font-family: "Courier New", Monaco, fixed-width;
+            }
+            .diff {
+                background-color: #fadad7;
+                color: #b30000;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Side-by-side diff</h1>
+        <table>
+            <thead>
+                <tr>
+                    <td>old</td>
+                    <td>line</td>
+                    <td>new</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for line in data.diff %}
+                <tr>
+                    <td class="left">
+                        {{ line.left }}
+                    </td>
+                    <td class="line">
+                        {{ line.line }}
+                    </td>
+                    <td class="right">
+                        {{ line.right }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
