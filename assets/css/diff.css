@@ -1,0 +1,137 @@
+.diff {
+    background-color: #fadad7;
+    color: #b30000;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", "Arial", sans-serif;
+    font-size: 100%;
+}
+
+a, a:visited {
+    color: #3794ca;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+header a {
+    display: block;
+    margin: 30px 0 20px 0;
+}
+
+header a img {
+    height: 5%;
+    width: 5%;
+}
+
+footer {
+    clear: both;
+    color: #adadad;
+    display: block;
+    font-size: 0.8em;
+    padding-top: 25px;
+    text-align: center;
+}
+
+footer a, footer a:visited {
+    color: #adadad;
+}
+
+footer a:hover {
+    color :#777;
+    text-decoration: underline;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    margin: 0 auto;
+    width: 90%;
+}
+
+ul.diff-container {
+    border: 1px solid #d8d8d8;
+    box-sizing: border-box;
+    float: left;
+    font-family: "Monaco", "Courier New", fixed-width;
+    font-size: 0.7em;
+    height: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+    overflow: auto;
+    width: 50%;
+}
+
+ul.diff-container.left {
+    border-right-width: 2px;
+}
+
+ul.diff-container.right {
+    border-left: none;
+}
+
+li.line {
+    margin: 0 0 5px 0;
+    padding: 0;
+    white-space: nowrap;
+}
+
+li.line:nth-child(odd) {
+    background-color: #f6f6f6;
+}
+
+div.header, div.footer {
+    background-color: #f7f7f7;
+    border: 1px solid #d8d8d8;
+    border-bottom: none;
+    box-sizing: border-box;
+    float: left;
+    font-size: 0.8em;
+    padding: 5px 10px;
+    width: 50%;
+}
+
+div.footer {
+    border-bottom: 1px solid #d8d8d8;
+    border-top: none;
+}
+
+div.header.left {
+    border-top-left-radius: 4px;
+}
+
+div.header.right {
+    border-top-right-radius: 4px;
+    text-align: right;
+}
+
+div.footer.left {
+    border-bottom-left-radius: 4px;
+}
+
+div.footer.right {
+    border-bottom-right-radius: 4px;
+    text-align: right;
+}
+
+div.header.left, div.footer.left {
+    border-right-width: 2px;
+}
+
+div.header.right, div.footer.right {
+    border-left-width: 0;
+}
