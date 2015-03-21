@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta author="Mefi"/>
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Difie"/>
+        <meta property="og:title" content="Difie is a simple tool for side-by-side comparing the source of two URLs." />
+        <meta property="og:image" content="http://difie.mefi.be/images/logo.png" />
+
+        <title>difie - Side by side diff</title>
+
+        <link rel="stylesheet" href="/css/index.css" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script>
+            $(function () {
+                var spinner = $("<i>").addClass("fa").addClass("fa-circle-o-notch").addClass("fa-spin");
+
+                if (undefined !== window.localStorage) {
+                    if (window.localStorage.hasOwnProperty("leftUrl")) {
+                        $("#left-url").val(decodeURIComponent(window.localStorage.leftUrl));
+                    }
+
+                    if (window.localStorage.hasOwnProperty("rightUrl")) {
+                        $("#right-url").val(decodeURIComponent(window.localStorage.rightUrl));
+                    }
+                }
+
+                $("#start-difie").click(function (e) {
+                    var leftUrl = encodeURIComponent($("#left-url").val()),
+                        rightUrl = encodeURIComponent($("#right-url").val());
+
+                    e.preventDefault();
+
+                    if (1 > leftUrl.length || 1 > rightUrl.length) {
+                        alert("You must enter two URLs!");
+                        return;
+                    }
+
+                    if (undefined !== window.localStorage) {
+                        window.localStorage.leftUrl = leftUrl;
+                        window.localStorage.rightUrl = rightUrl;
+                    }
+
+                    $(this).html(spinner);
+
+                    window.location.href = "/diff/" + leftUrl + "/" + rightUrl;
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="container">
+
+            <header>
+                <h1>
+                    <a href="/">
+                        <img alt="difie logo" src="/images/logo.png" />
+                    </a>
+                </h1>
+            </header>
+
+            <div class="content">
+                <p>Difie is a simple tool for side-by-side comparing the source of two URLs.</p>
+                <div class="input">
+                    <input type="text" id="left-url" />
+                    <input type="text" id="right-url" />
+                </div>
+                <p>
+                    <a href="#" id="start-difie">Let's go, difie!</a>
+                </p>
+            </div>
+
+            <footer>
+                <p><a href="http://difie.mefi.be/">difie</a> &copy; 2015 <a href="http://mefi.be/">Mefi</a></p>
+            </footer>
+        </div>
+        {% include "./analytics.html" %}
+    </body>
+</html>

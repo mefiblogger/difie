@@ -1,4 +1,4 @@
-/*global require, module */
+/*global require, module, __dirname */
 /*jslint unparam: true, sloppy: true, vars: true */
 
 var express = require("express"),
@@ -21,9 +21,15 @@ app.use("/images", express.static(__dirname + "/assets/images"));
 app.use("/css", express.static(__dirname + "/assets/css"));
 app.use("/js", express.static(__dirname + "/assets/js"));
 
-// diff site
+// start page
 app.get("/", function (req, res) {
-    diffTool.start("http://ingatlan.com/21242380", "http://ingatlan.com/21242382", function (error, result) {
+    var template = swig.compileFile(__dirname + '/assets/templates/index.html');
+    res.send(template());
+});
+
+// diff site
+app.get("/diff/:left/:right", function (req, res) {
+    diffTool.start(req.params.left, req.params.right, function (error, result) {
         var template = swig.compileFile(__dirname + '/assets/templates/diff.html');
         res.send(template({ result : result }));
     });
