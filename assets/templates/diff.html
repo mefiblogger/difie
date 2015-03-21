@@ -44,7 +44,7 @@
             <ul class="diff-container left">
                 {% for line in result.diff %}
                 <li class="line">
-                    {{ line.left }}
+                    {% autoescape false %}{{ line.left }}{% endautoescape %}
                 </li>
                 {% endfor %}
             </ul>
@@ -52,7 +52,7 @@
             <ul class="diff-container right">
                 {% for line in result.diff %}
                 <li class="line">
-                    {{ line.right }}
+                    {% autoescape false %}{{ line.right }}{% endautoescape %}
                 </li>
                 {% endfor %}
             </ul>

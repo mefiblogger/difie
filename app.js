@@ -8,9 +8,6 @@ var express = require("express"),
     swig = require("swig"),
     diffTool = new DiffTool();
 
-// disable swig escaping
-swig.setDefaults({ autoescape: false });
-
 // express server
 server = app.listen(process.env.PORT || process.argv[2] || 3000, function () {
     console.log("[app] start - port:%s", server.address().port);
