@@ -13,7 +13,7 @@ module.exports = function () {
      * @returns {string}
      */
     var clear = function (text) {
-        return text.replace("<", "&lt;").replace(">", "&gt;");
+        return text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
     };
 
     /**
@@ -33,7 +33,7 @@ module.exports = function () {
 
         for (i = 0; i <= length; i++) {
             if (right.hasOwnProperty(i)) {
-                if (right[i] != left[openPos]) {
+                if (right[i] != left[lastMatchingPosition]) {
                     if (!open) {
                         highlighted += "<span class='diff'>";
                         open = true;
@@ -57,16 +57,13 @@ module.exports = function () {
      * Collects the different lines of two given string
      * and returns it within the given callback.
      *
-     * @param {string}      urlLeft
-     * @param {string}      responseLeft
-     * @param {string}      urlRight
-     * @param {string}      responseRight
+     * @param {object}      data
      * @param {function}    callback
      */
-    var diff = function (urlLeft, responseLeft, urlRight, responseRight, callback) {
+    var diff = function (data, callback) {
         var diff = [],
-            left = responseLeft.split("\n"),
-            right = responseRight.split("\n"),
+            left = data.responseLeft.body.split("\n"),
+            right = data.responseRight.body.split("\n"),
             lineLeft,
             lineRight,
             lines,
@@ -89,8 +86,7 @@ module.exports = function () {
 
         callback(false, {
             diff: diff,
-            left: responseLeft,
-            right: responseRight
+            data : data
         });
     };
 
@@ -104,19 +100,37 @@ module.exports = function () {
      * @param {function}    callback
      */
     var start = function (urlLeft, urlRight, callback) {
+        var start = Date.now(),
+            responseTimeLeft,
+            responseTimeRight;
+
+
         request({ url: urlLeft }, function (errorLeft, responseLeft) {
+            responseTimeLeft = Date.now() - start;
+
             if (!responseLeft) {
                 callback("Failed to load LEFT URL: " + urlLeft, null);
                 return;
             }
 
+            start = Date.now();
+
             request({ url: urlRight }, function (errorRight, responseRight) {
+                responseTimeRight = Date.now() - start;
+
                 if (!responseRight) {
                     callback("Failed to load RIGHT URL: " + urlRight, null);
                     return;
                 }
 
-                diff(urlLeft, responseLeft.body, urlRight, responseRight.body, callback);
+                diff({
+                    urlLeft : urlLeft,
+                    responseLeft: responseLeft,
+                    responseTimeLeft: responseTimeLeft,
+                    urlRgiht: urlRight,
+                    responseRight: responseRight,
+                    responseTimeRight: responseTimeRight,
+                }, callback);
             });
         });
     };
