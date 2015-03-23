@@ -1,4 +1,4 @@
-/*global require, module, __dirname */
+/*global require, module, __dirname, process */
 /*jslint unparam: true, sloppy: true, vars: true */
 
 var express = require("express"),
@@ -26,7 +26,18 @@ app.get("/", function (req, res) {
 
 // diff site
 app.get("/diff/:left/:right", function (req, res) {
-    diffTool.start(req.params.left, req.params.right, function (error, result) {
+    var leftUrl = req.params.left,
+        rightUrl = req.params.right;
+
+    if ("http" != leftUrl.substr(0, 4)) {
+        leftUrl = "http://" + leftUrl;
+    }
+
+    if ("http" != rightUrl.substr(0, 4)) {
+        rightUrl = "http://" + rightUrl;
+    }
+
+    diffTool.start(leftUrl, rightUrl, function (error, result) {
         var template = swig.compileFile(__dirname + '/assets/templates/diff.html');
         res.send(template({ result : result }));
     });
