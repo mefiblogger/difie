@@ -2,6 +2,8 @@
 
 Difie is a simple tool for side-by-side comparing the source of two URLs.
 
+![Heroku](https://heroku-badge.herokuapp.com/?app=difie)
+
 You can check it on Heroku: http://difie.mefi.be
 
 ## Installing and running
