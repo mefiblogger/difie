@@ -1,12 +1,13 @@
 {
-    "name" : "difie",
-    "description" : "Diff tool for the interweb people.",
-    "author": "Mefi <mefi@mefi.be>",
-    "version" : "1.0.0",
-    "repository" : "https://github.com/mefiblogger/difie",
-    "dependencies": {
-        "express" : "4.*",
-        "swig" : "1.4.2",
-        "request" : "2.*"
-    }
+  "name": "difie",
+  "description": "Diff tool for the interweb people.",
+  "author": "Mefi <mefi@mefi.be>",
+  "version": "1.0.0",
+  "repository": "https://github.com/mefiblogger/difie",
+  "dependencies": {
+    "express": "4.*",
+    "express-stormpath": "^1.0.1",
+    "request": "2.*",
+    "swig": "1.4.2"
+  }
 }

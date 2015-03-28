@@ -3,10 +3,11 @@
 
 var express = require("express"),
     app = express(),
-    server,
+    stormpath = require('express-stormpath'),
     DiffTool = require("./DiffTool"),
     swig = require("swig"),
-    diffTool = new DiffTool();
+    diffTool = new DiffTool(),
+    server;
 
 // express server
 server = app.listen(process.env.PORT || process.argv[2] || 3000, function () {
@@ -17,6 +18,14 @@ server = app.listen(process.env.PORT || process.argv[2] || 3000, function () {
 app.use("/images", express.static(__dirname + "/assets/images"));
 app.use("/css", express.static(__dirname + "/assets/css"));
 app.use("/js", express.static(__dirname + "/assets/js"));
+
+// stormpath
+app.use(stormpath.init(app, {
+    apiKeyId:     process.env.STORMPATH_API_KEY_ID,
+    apiKeySecret: process.env.STORMPATH_API_KEY_SECRET,
+    secretKey:    process.env.STORMPATH_SECRET_KEY,
+    application:  process.env.STORMPATH_URL
+}));
 
 // start page
 app.get("/", function (req, res) {
